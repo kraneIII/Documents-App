@@ -17,7 +17,7 @@ class DocumentsViewController: UIViewController {
         
         return picker
     }()
-
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView.init(
             frame: .zero , style: .insetGrouped
@@ -31,7 +31,7 @@ class DocumentsViewController: UIViewController {
     private enum CellReuseID: String {
         case document = "DocumentTableViewCell_ReuseID"
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubViews()
@@ -47,7 +47,7 @@ class DocumentsViewController: UIViewController {
     private func pickImage() {
         navigationController?.present(imagePicker, animated: true, completion: nil)
     }
-
+    
     private func setupUI() {
         title = "Documents"
         view.backgroundColor = .systemGray5
@@ -58,7 +58,7 @@ class DocumentsViewController: UIViewController {
     private func addSubViews() {
         view.addSubview(tableView)
     }
-
+    
     private func layout() {
         addSubViews()
         let safeArea = view.safeAreaLayoutGuide
@@ -69,28 +69,28 @@ class DocumentsViewController: UIViewController {
             tableView.rightAnchor.constraint(equalTo: safeArea.rightAnchor),
             tableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-    
+            
         ])
     }
     
     private func tableViewConfigure() {
         tableView.delegate = self
         tableView.dataSource = self
-            }
+    }
     
     private func photoAlertVC() {
         //
-                let alert = UIAlertController(title: "Name of photo", message: "Enter photo name", preferredStyle: .alert)
-                alert.addTextField { (textField : UITextField!) -> Void in
-                    textField.placeholder = "Write something"
-                    textField.keyboardType = .default
-                    textField.textColor = .systemBlue
-                }
+        let alert = UIAlertController(title: "Name of photo", message: "Enter photo name", preferredStyle: .alert)
+        alert.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Write something"
+            textField.keyboardType = .default
+            textField.textColor = .systemBlue
+        }
         //
-                let alertButton = UIAlertAction(title: "Ok", style: .default){ [ weak self ] (alertAction) in
-                    guard let self else { return }
-                    self.tableView.reloadData()
-    }
+        let alertButton = UIAlertAction(title: "Ok", style: .default){ [ weak self ] (alertAction) in
+            guard let self else { return }
+            self.tableView.reloadData()
+        }
         
         alert.addAction(alertButton)
         self.present(alert, animated: true)
@@ -125,7 +125,7 @@ class DocumentsViewController: UIViewController {
 
 
 extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         fileManager.item.count
     }
@@ -139,7 +139,7 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
         if let image = UIImage(contentsOfFile: fileManager.Urls()[indexPath.row].path) {
             configuration.image = image
             configuration.text = fileManager.Files()[indexPath.row]
-                }
+        }
         
         cell.contentConfiguration = configuration
         
@@ -177,7 +177,7 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension DocumentsViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-
+        
         if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             fileManager.createFile(photo: pickedImage, content: name)
         }
