@@ -27,7 +27,6 @@ extension UIStackView {
 enum UserState {
     case notAuthoriz
     case savedPassword
-    case reloadData
 }
 
 enum ButtonState {
@@ -58,6 +57,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
     
     private lazy var loginButton: UIButton = {
         let view = UIButton()
+        view.isEnabled = false
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setTitleColor(.systemBlue, for: .normal)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -84,7 +84,6 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         view.layer.cornerRadius = 5
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
-        view.isHidden = true
         
         return view
     }()
@@ -101,7 +100,6 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         setupUI()
         addSubviews()
-        checkPassword()
         layout()
         checkLogin()
         
@@ -200,18 +198,6 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(image)
     }
     
-    private func checkPassword() {
-//        if passwordView.text!.count < 4 {
-//            indicator.backgroundColor = .red
-//            loginButton.isEnabled = false
-//        }
-//        else {
-//            indicator.backgroundColor = .green
-//            loginButton.isEnabled = true
-//        }
-//        view.reloadInputViews()
-    }
-    
     private func alert() {
         let alertAction = UIAlertAction(title: "Wrong password", style: .default)
         let alertVC = UIAlertController()
@@ -241,6 +227,16 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.text?.count ?? 0 < 4 {
+                    indicator.backgroundColor = .red
+                    loginButton.isEnabled = false
+                } else {
+                    indicator.backgroundColor = .green
+                    loginButton.isEnabled = true
+                }
+    }
+    
     @objc func gotoMainController() {
         
         if state == .notAuthoriz {
@@ -249,9 +245,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         if state == .savedPassword {
             authification()
         }
-        if state == .reloadData {
-            navigationController?.dismiss(animated: true)
-        }
+
     }
     
 }
