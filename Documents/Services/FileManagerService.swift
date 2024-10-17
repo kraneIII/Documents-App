@@ -3,6 +3,8 @@ import UIKit
 
 class FileManagerService: UIViewController {
     
+    let userDefaults = UserDefaults.standard
+    
     var url: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     
     init() {
@@ -24,7 +26,7 @@ class FileManagerService: UIViewController {
         (try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: [])) ?? []
     }
     
-    func Urls() -> [URL] {
+    func urls() -> [URL] {
          var urls: [URL] = []
          
          do {
@@ -37,7 +39,7 @@ class FileManagerService: UIViewController {
          return urls
      }
     
-    func Files() -> [String] {
+    func files() -> [String] {
         var files: [String] = []
         do {
             let documentsUrl = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
@@ -46,16 +48,20 @@ class FileManagerService: UIViewController {
         } catch {
             print(error.localizedDescription)
         }
-        return files
+        
+        if userDefaults.bool(forKey: "settings") {
+                   return files.sorted(by: <)
+               }
+               return files.sorted(by: >)
     }
     
     func createFolder(name: String) {
         try? FileManager.default.createDirectory(at: url.appending(path: name), withIntermediateDirectories: true)
     }
     
-    func createFile(photo: UIImage, content: String) {
+    func createFile(photo: UIImage, content: String?) {
          let documentsUrl = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-        let photoPath = documentsUrl?.appendingPathComponent(content, conformingTo: .png)
+        let photoPath = documentsUrl?.appendingPathComponent(content ?? "", conformingTo: .png)
         if let image = photo.jpegData(compressionQuality: 1) {
             FileManager.default.createFile(atPath: photoPath!.path, contents: image)
         }

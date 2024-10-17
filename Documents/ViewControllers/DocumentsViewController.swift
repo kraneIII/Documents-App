@@ -1,9 +1,9 @@
-
+import Foundation
 import UIKit
 
 class DocumentsViewController: UIViewController {
     
-    var name = "image"
+    var name: String = "nk"
     
     let fileManager = FileManagerService()
     
@@ -53,6 +53,7 @@ class DocumentsViewController: UIViewController {
         view.backgroundColor = .systemGray5
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down.on.square.fill"), style: .plain, target: self, action: #selector(createFiles))
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "photo.badge.plus"), style: .plain, target: self, action: #selector(createPhotos))
+        
     }
     
     private func addSubViews() {
@@ -74,6 +75,8 @@ class DocumentsViewController: UIViewController {
     }
     
     private func tableViewConfigure() {
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultTableCellIndentifier")
+        
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -132,13 +135,14 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "defaultTableCellIndentifier", for: indexPath)
+        cell.textLabel?.text = fileManager.files()[indexPath.row]
         var configuration = UIListContentConfiguration.cell()
-        configuration.text = fileManager.Files()[indexPath.row]
+        configuration.text = fileManager.files()[indexPath.row]
         configuration.secondaryText = fileManager.isFolder(atIndex: indexPath.row) ? "Folder" : "Image"
-        if let image = UIImage(contentsOfFile: fileManager.Urls()[indexPath.row].path) {
+        if let image = UIImage(contentsOfFile: fileManager.urls()[indexPath.row].path()) {
             configuration.image = image
-            configuration.text = fileManager.Files()[indexPath.row]
+            configuration.text = fileManager.files()[indexPath.row]
         }
         
         cell.contentConfiguration = configuration
@@ -164,7 +168,7 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if fileManager.isFolder(atIndex: indexPath.row) != true {
             if indexPath.row != -1 {
-                let imagePresent = ImagePresentController(image: fileManager.catchImage(fileName: fileManager.Files()[indexPath.row]))
+                let imagePresent = ImagePresentController(image: fileManager.catchImage(fileName: fileManager.files()[indexPath.row]))
                 imagePresent.title = fileManager.item[indexPath.row].description
                 imagePresent.modalPresentationStyle = .formSheet
                 imagePresent.modalTransitionStyle = .coverVertical
@@ -172,6 +176,10 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
                 present(imagePresent, animated: true)
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 }
 

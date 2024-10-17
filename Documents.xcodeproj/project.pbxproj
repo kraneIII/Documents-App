@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA1217472CAA7DFC0093576B /* TextField Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1217462CAA7DFC0093576B /* TextField Extension.swift */; };
+		EA12174B2CB69FCB0093576B /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EA12174A2CB69FCB0093576B /* KeychainSwift */; };
+		EA1217582CB6A4ED0093576B /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1217572CB6A4ED0093576B /* Store.swift */; };
+		EA12175C2CC057F70093576B /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA12175B2CC057F70093576B /* ChangePasswordViewController.swift */; };
+		EA40C43D2C6A8CB90073D8FA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA40C43C2C6A8CB90073D8FA /* SettingsViewController.swift */; };
 		EA54078C2BF385EA00B535A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA54078B2BF385EA00B535A6 /* AppDelegate.swift */; };
 		EA54078E2BF385EA00B535A6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA54078D2BF385EA00B535A6 /* SceneDelegate.swift */; };
 		EA5407902BF385EA00B535A6 /* FileManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA54078F2BF385EA00B535A6 /* FileManagerService.swift */; };
@@ -14,9 +19,14 @@
 		EA5407982BF385EC00B535A6 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = EA5407972BF385EC00B535A6 /* Base */; };
 		EA5407A52BF3897100B535A6 /* DocumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5407A42BF3897100B535A6 /* DocumentsViewController.swift */; };
 		EA5407AF2C00C35300B535A6 /* ImagePresentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5407AE2C00C35300B535A6 /* ImagePresentController.swift */; };
+		EA5407B12C1F5B8200B535A6 /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5407B02C1F5B8100B535A6 /* PasswordViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EA1217462CAA7DFC0093576B /* TextField Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField Extension.swift"; sourceTree = "<group>"; };
+		EA1217572CB6A4ED0093576B /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		EA12175B2CC057F70093576B /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		EA40C43C2C6A8CB90073D8FA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		EA5407882BF385EA00B535A6 /* Documents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Documents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA54078B2BF385EA00B535A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA54078D2BF385EA00B535A6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,6 +36,7 @@
 		EA5407992BF385EC00B535A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA5407A42BF3897100B535A6 /* DocumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewController.swift; sourceTree = "<group>"; };
 		EA5407AE2C00C35300B535A6 /* ImagePresentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePresentController.swift; sourceTree = "<group>"; };
+		EA5407B02C1F5B8100B535A6 /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,12 +44,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA12174B2CB69FCB0093576B /* KeychainSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA1217482CAA7F150093576B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EA1217462CAA7DFC0093576B /* TextField Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EA1217542CB6A0B20093576B /* PasswordViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EA5407B02C1F5B8100B535A6 /* PasswordViewController.swift */,
+				EA12175B2CC057F70093576B /* ChangePasswordViewController.swift */,
+			);
+			path = PasswordViewController;
+			sourceTree = "<group>";
+		};
 		EA54077F2BF385EA00B535A6 = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +89,7 @@
 			children = (
 				EA5407A32BF386A000B535A6 /* Resources */,
 				EA5407A62BF7531900B535A6 /* ViewControllers */,
+				EA1217482CAA7F150093576B /* Extensions */,
 				EA5407A72BF7532B00B535A6 /* Services */,
 				EA5407942BF385EC00B535A6 /* Assets.xcassets */,
 				EA5407962BF385EC00B535A6 /* LaunchScreen.storyboard */,
@@ -80,7 +110,9 @@
 		EA5407A62BF7531900B535A6 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				EA1217542CB6A0B20093576B /* PasswordViewController */,
 				EA5407A42BF3897100B535A6 /* DocumentsViewController.swift */,
+				EA40C43C2C6A8CB90073D8FA /* SettingsViewController.swift */,
 				EA5407AE2C00C35300B535A6 /* ImagePresentController.swift */,
 			);
 			path = ViewControllers;
@@ -90,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				EA54078F2BF385EA00B535A6 /* FileManagerService.swift */,
+				EA1217572CB6A4ED0093576B /* Store.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -110,6 +143,9 @@
 			dependencies = (
 			);
 			name = Documents;
+			packageProductDependencies = (
+				EA12174A2CB69FCB0093576B /* KeychainSwift */,
+			);
 			productName = Documents;
 			productReference = EA5407882BF385EA00B535A6 /* Documents.app */;
 			productType = "com.apple.product-type.application";
@@ -138,6 +174,9 @@
 				Base,
 			);
 			mainGroup = EA54077F2BF385EA00B535A6;
+			packageReferences = (
+				EA1217492CB69FCB0093576B /* XCRemoteSwiftPackageReference "keychain-swift" */,
+			);
 			productRefGroup = EA5407892BF385EA00B535A6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -166,9 +205,14 @@
 			files = (
 				EA5407902BF385EA00B535A6 /* FileManagerService.swift in Sources */,
 				EA5407A52BF3897100B535A6 /* DocumentsViewController.swift in Sources */,
+				EA40C43D2C6A8CB90073D8FA /* SettingsViewController.swift in Sources */,
+				EA12175C2CC057F70093576B /* ChangePasswordViewController.swift in Sources */,
+				EA1217472CAA7DFC0093576B /* TextField Extension.swift in Sources */,
+				EA1217582CB6A4ED0093576B /* Store.swift in Sources */,
 				EA54078C2BF385EA00B535A6 /* AppDelegate.swift in Sources */,
 				EA54078E2BF385EA00B535A6 /* SceneDelegate.swift in Sources */,
 				EA5407AF2C00C35300B535A6 /* ImagePresentController.swift in Sources */,
+				EA5407B12C1F5B8200B535A6 /* PasswordViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +425,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EA1217492CB69FCB0093576B /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 24.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EA12174A2CB69FCB0093576B /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA1217492CB69FCB0093576B /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EA5407802BF385EA00B535A6 /* Project object */;
 }

@@ -11,12 +11,37 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         guard let scene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: scene)
+        let tabBar = UITabBarController()
         
-        window.rootViewController = UINavigationController(rootViewController: DocumentsViewController())
+        window.rootViewController = tabBar
+        
+        tabBar.tabBar.backgroundColor = UIColor.systemGray5
+        
+        let document = DocumentsViewController()
+        let settings = SettingsViewController()
+        
+        document.tabBarItem = UITabBarItem(title: "Docs", image: UIImage(systemName: "doc"), tag: 0)
+        settings.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(systemName: "gear"), tag: 1)
+        
+        let controllers = [document,
+                           settings]
+        
+        tabBar.viewControllers = controllers.map {
+            UINavigationController(rootViewController: $0)
+        }
+            
+        let passwordVC = PasswordViewController()
+        passwordVC.modalPresentationStyle = .fullScreen
+        
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                self.window?.rootViewController?.present(passwordVC, animated: false)
+                                                         }
+                                                         }
         
         window.makeKeyAndVisible()
         self.window = window
-
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
