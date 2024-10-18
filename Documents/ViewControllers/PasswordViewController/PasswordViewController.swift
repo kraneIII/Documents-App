@@ -42,19 +42,6 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
     private var firstPassword = ""
     private var secondPassword = ""
     
-    
-    private lazy var stackView: UIStackView = {
-        let view = UIStackView()
-        view.addArrangedSubview(passwordView)
-        view.axis = .vertical
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 15
-        view.layer.borderColor = UIColor.systemGray.cgColor
-        view.layer.borderWidth = 1
-        
-        return view
-    }()
-    
     private lazy var loginButton: UIButton = {
         let view = UIButton()
         view.isEnabled = false
@@ -74,6 +61,9 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         view.setLeftPaddingPoints(20)
         view.resignFirstResponder()
         view.delegate = self
+        view.layer.cornerRadius = 15
+        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderWidth = 1
         
         return view
     }()
@@ -84,6 +74,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         view.layer.cornerRadius = 5
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
+        view.backgroundColor = .red
         
         return view
     }()
@@ -121,18 +112,16 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
             loginButton.heightAnchor.constraint(equalToConstant: 30),
             loginButton.widthAnchor.constraint(equalToConstant: 150),
             
-            indicator.bottomAnchor.constraint(equalTo: stackView.bottomAnchor,constant: -10),
-            indicator.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -10),
+            indicator.bottomAnchor.constraint(equalTo: passwordView.bottomAnchor,constant: -10),
+            indicator.trailingAnchor.constraint(equalTo: passwordView.trailingAnchor, constant: -10),
             indicator.heightAnchor.constraint(equalToConstant: 10),
             indicator.widthAnchor.constraint(equalToConstant: 10),
             
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
-            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
-            stackView.widthAnchor.constraint(equalToConstant: 100),
-            
-            passwordView.heightAnchor.constraint(equalToConstant: 30),
-            
+            passwordView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
+            passwordView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
+            passwordView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
+            passwordView.heightAnchor.constraint(equalToConstant: 30)
+                
         ])
     }
     
@@ -194,7 +183,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
     private func addSubviews() {
         view.addSubview(indicator)
         view.addSubview(loginButton)
-        view.addSubview(stackView)
+        view.addSubview(passwordView)
         view.addSubview(image)
     }
     
@@ -219,6 +208,8 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
     
     private func clearTextField() {
         passwordView.text = ""
+        loginButton.isEnabled = false
+        indicator.backgroundColor = .red
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -236,7 +227,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
                     loginButton.isEnabled = true
                 }
     }
-    
+        
     @objc func gotoMainController() {
         
         if state == .notAuthoriz {
