@@ -53,7 +53,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         
         return view
     }()
-        
+    
     private lazy var passwordView: UITextField = {
         let view = UITextField()
         view.placeholder = "Enter password"
@@ -67,7 +67,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         
         return view
     }()
-
+    
     private lazy var indicator: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -94,7 +94,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         layout()
         checkLogin()
         
-//        stackView.addSeparators(at: [1], color: .systemGray)
+        //        stackView.addSeparators(at: [1], color: .systemGray)
         
     }
     
@@ -121,7 +121,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
             passwordView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
             passwordView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
             passwordView.heightAnchor.constraint(equalToConstant: 30)
-                
+            
         ])
     }
     
@@ -131,7 +131,8 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         }
         if state == .savedPassword {
             loginButton.setTitle("Enter password", for: .normal)
-
+            
+            
         }
     }
     
@@ -157,9 +158,9 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
             let password = passwordView.text ?? ""
             secondPassword = password
             if firstPassword == secondPassword {
+                dismiss(animated: true)
                 PasswordManagerService().savePassword(password: secondPassword)
                 clearTextField()
-                dismiss(animated: true)
                 passwordView.placeholder = "Enter password"
                 loginButton.setTitle("Create password", for: .normal)
                 buttonState = .firstPassword
@@ -186,13 +187,14 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(passwordView)
         view.addSubview(image)
     }
-
+    
     //MARK: - Auth
     
     private func authification() {
-        let userPassword = passwordView.text ?? ""
+        guard let userPassword = passwordView.text else { return }
         if PasswordManagerService().checkPassword(password: userPassword) {
             dismiss(animated: true)
+            print("auth")
         }
         else {
             print("error")
@@ -205,29 +207,28 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         passwordView.resignFirstResponder()
-
+        
         return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text?.count ?? 0 < 4 {
-                    indicator.backgroundColor = .red
-                    loginButton.isEnabled = false
-                } else {
-                    indicator.backgroundColor = .green
-                    loginButton.isEnabled = true
-                }
+            indicator.backgroundColor = .red
+            loginButton.isEnabled = false
+        } else {
+            indicator.backgroundColor = .green
+            loginButton.isEnabled = true
+        }
     }
-        
+    
     @objc func gotoMainController() {
         
         if state == .notAuthoriz {
             textFieldSetup()
         }
-        if state == .savedPassword {
+        else if state == .savedPassword {
             authification()
         }
-
     }
     
 }
