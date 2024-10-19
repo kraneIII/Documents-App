@@ -21,7 +21,7 @@ final class PasswordManagerService: PasswordManager {
     
     func checkPassword(password: String) -> Bool {
         let enteredPassword = keychain.get("password")
-        if enteredPassword != nil {
+        if enteredPassword == password {
             return true
         }
             return false
