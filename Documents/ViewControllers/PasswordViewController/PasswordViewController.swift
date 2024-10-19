@@ -186,14 +186,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(passwordView)
         view.addSubview(image)
     }
-    
-    private func alert() {
-        let alertAction = UIAlertAction(title: "Wrong password", style: .default)
-        let alertVC = UIAlertController()
-        alertVC.addAction(alertAction)
-        navigationController?.present(alertVC, animated: true)
-    }
-    
+
     //MARK: - Auth
     
     private func authification() {
@@ -202,14 +195,12 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
             dismiss(animated: true)
         }
         else {
-            alert()
+            print("error")
         }
     }
     
     private func clearTextField() {
         passwordView.text = ""
-        loginButton.isEnabled = false
-        indicator.backgroundColor = .red
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -33,11 +33,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let passwordVC = PasswordViewController()
         passwordVC.modalPresentationStyle = .fullScreen
         
-        DispatchQueue.global().async {
-            DispatchQueue.main.async {
-                self.window?.rootViewController?.present(passwordVC, animated: false)
-                                                         }
-                                                         }
+//        DispatchQueue.global().async {
+//            DispatchQueue.main.async {
+//                self.window?.rootViewController?.present(passwordVC, animated: false)
+//                                                         }
+//                                                         }
         
         window.makeKeyAndVisible()
         self.window = window
