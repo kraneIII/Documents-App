@@ -53,6 +53,9 @@ class DocumentsViewController: UIViewController {
         view.backgroundColor = .systemGray5
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down.on.square.fill"), style: .plain, target: self, action: #selector(createFiles))
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "photo.badge.plus"), style: .plain, target: self, action: #selector(createPhotos))
+        navigationController?.navigationBar.backgroundColor = .systemGray5
+        
+        tabBarController?.tabBar.isHidden = false
         
     }
     

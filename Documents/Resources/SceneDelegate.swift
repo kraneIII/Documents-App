@@ -26,27 +26,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         tabBar.tabBar.backgroundColor = UIColor.systemGray5
         
-        let document = DocumentsViewController()
+        let password = PasswordViewController()
         let settings = SettingsViewController()
         
-        document.tabBarItem = UITabBarItem(title: "Docs", image: UIImage(systemName: "doc"), tag: 0)
+        password.tabBarItem = UITabBarItem(title: "Docs", image: UIImage(systemName: "doc"), tag: 0)
         settings.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(systemName: "gear"), tag: 1)
         
-        let controllers = [document,
+        let controllers = [password,
                            settings]
         
         tabBar.viewControllers = controllers.map {
             UINavigationController(rootViewController: $0)
         }
             
-        let passwordVC = PasswordViewController()
-        passwordVC.modalPresentationStyle = .fullScreen
-        
-        DispatchQueue.global().async {
-            DispatchQueue.main.async {
-                self.window?.rootViewController?.present(passwordVC, animated: false)
-                                                         }
-                                                         }
+//        let passwordVC = PasswordViewController()
+//        passwordVC.modalPresentationStyle = .fullScreen
+////        
+//        DispatchQueue.global().async {
+//            DispatchQueue.main.async {
+//                self.window?.rootViewController?.present(passwordVC, animated: false)
+//                                                         }
+//                                                         }
         
         window.makeKeyAndVisible()
         self.window = window

@@ -38,13 +38,15 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
     
     var mainNavigationController: UINavigationController?
     var state: UserState?
+    var documentVC = DocumentsViewController()
     private var buttonState: ButtonState = .firstPassword
     private var firstPassword = ""
     private var secondPassword = ""
     
+    //MARK: - Views
+    
     private lazy var loginButton: UIButton = {
         let view = UIButton()
-        view.isEnabled = false
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setTitleColor(.systemBlue, for: .normal)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -98,6 +100,8 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    //MARK: - Layout
+    
     private func layout() {
         addSubviews()
         NSLayoutConstraint.activate([
@@ -124,6 +128,39 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
             
         ])
     }
+    
+    //MARK: - Common func
+    
+    private func setupUI() {
+        view.backgroundColor = .systemGray5
+//        title = "LogIn"
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    private func addSubviews() {
+        view.addSubview(indicator)
+        view.addSubview(loginButton)
+        view.addSubview(passwordView)
+        view.addSubview(image)
+    }
+    
+    private func alertMessage() {
+
+        let alertWrongPassword = UIAlertAction(title: "Try again", style: .default, handler: { [self]_ in
+            clearTextField()
+        })
+        
+            let alertVC = UIAlertController(title: "Login", message: "Invalid or wrong password", preferredStyle: .alert)
+            alertVC.addAction(alertWrongPassword)
+        
+            present(alertVC, animated: true)
+        }
+    
+    private func clearTextField() {
+        passwordView.text = ""
+    }
+    
+    //MARK: - Auth
     
     private func checkLoginButton() {
         if state == .notAuthoriz {
@@ -158,7 +195,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
             let password = passwordView.text ?? ""
             secondPassword = password
             if firstPassword == secondPassword {
-                dismiss(animated: true)
+                mainNavigationController?.pushViewController(documentVC, animated: true)
                 PasswordManagerService().savePassword(password: secondPassword)
                 clearTextField()
                 passwordView.placeholder = "Enter password"
@@ -176,34 +213,19 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    private func setupUI() {
-        view.backgroundColor = .systemGray5
-        title = "LogIn"
-    }
-    
-    private func addSubviews() {
-        view.addSubview(indicator)
-        view.addSubview(loginButton)
-        view.addSubview(passwordView)
-        view.addSubview(image)
-    }
-    
-    //MARK: - Auth
-    
     private func authification() {
         guard let userPassword = passwordView.text else { return }
         if PasswordManagerService().checkPassword(password: userPassword) {
-            dismiss(animated: true)
+            navigationController?.pushViewController(documentVC, animated: true)
             print("auth")
         }
         else {
+            alertMessage()
             print("error")
         }
     }
     
-    private func clearTextField() {
-        passwordView.text = ""
-    }
+    //MARK: Delegate and objc func
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         passwordView.resignFirstResponder()
@@ -214,10 +236,9 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text?.count ?? 0 < 4 {
             indicator.backgroundColor = .red
-            loginButton.isEnabled = false
+            alertMessage()
         } else {
             indicator.backgroundColor = .green
-            loginButton.isEnabled = true
         }
     }
     
